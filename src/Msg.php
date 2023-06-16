@@ -7,6 +7,7 @@ use Symfony\Component\Mailer\Transport\AbstractTransport;
 use Symfony\Component\Mailer\SentMessage;
 use Psr\Log\LoggerInterface;
 use Psr\EventDispatcher\EventDispatcherInterface;
+
 class Msg extends AbstractTransport
 {
     private $slackConnection;
@@ -20,6 +21,7 @@ class Msg extends AbstractTransport
     parent::__construct($eventDispatcher, $logger);
 }
 
+ ### pull req-> decided not to make this function too big to keep it simple. 
     protected function doSend(SentMessage $message): void
     {
          // Get the message body

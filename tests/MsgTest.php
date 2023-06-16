@@ -25,13 +25,17 @@ class MsgTest extends TestCase
     private $messageBody_M;
     private $RawMessage_M;
     
-        protected function setUp(): void
+        /**
+         * Summary of setUp
+         * @return void
+         */
+        public function setUp(): void
         {
             $this->logger_M = $this->createMock(LoggerInterface::class);
             $this->client_M = $this->createMock(Client::class);
             $url_M = 'http://test_url';
             $key_M = 'testkey555';
-            $this->RawMessage_M = new RawMessage('');
+            // $this->RawMessage_M = new RawMessage('');
             $this->msg_M = new Msg($url_M, $key_M, $this->client_M, $this->logger_M);
             $this->connection_M = $url_M  . $key_M;
             $this->email_M = new Email();
@@ -40,9 +44,12 @@ class MsgTest extends TestCase
                         ->text('Test body txt');
             $this->sentMessage_M = $this->createMock(SentMessage::class);
             $this->messageBody_M = $this->email_M->getTextBody();
+            $this->RawMessage_M = $this->email_M;
         }
 
-        // positive verification
+        /** positive verification    
+         * @return void
+         */
         public function testDoSendOnce(): void
         {   /// this test case tests 'behavior verification' of the guzzle dependency(httpclient)
             $this->client_M->expects($this->once())
@@ -58,7 +65,9 @@ class MsgTest extends TestCase
             $this->msg_M->send($this->RawMessage_M);
         }
 
-        // negative verification
+            /** negative verification    
+         * @return void
+         */
   public function testDoSendFailsOnce(): void
     {
         $this->client_M->expects($this->once())
